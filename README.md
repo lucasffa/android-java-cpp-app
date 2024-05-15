@@ -26,4 +26,3 @@ Antes de começar, certifique-se de ter o seguinte instalado:
 - `src/main/java`: Código-fonte Java do aplicativo.
 - `src/main/cpp`: Código-fonte C++ utilizado para funções nativas.
 - `src/main/res`: Recursos do aplicativo como layouts e valores de strings.
-```
