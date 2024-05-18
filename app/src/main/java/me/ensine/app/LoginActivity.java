@@ -4,12 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
 
 public class LoginActivity extends Activity {
 
@@ -17,9 +29,7 @@ public class LoginActivity extends Activity {
     private EditText passwordEditText;
     private TextView errorTextView;
 
-    static {
-        System.loadLibrary("native-lib");
-    }
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +53,15 @@ public class LoginActivity extends Activity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
+        Log.d(TAG, "Validating email: " + email);
+        Log.d(TAG, "Validating password: " + password);
+
         if (email.isEmpty() || password.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             errorTextView.setText(R.string.invalid_email_password);
+            Log.e(TAG, "Invalid email or password format.");
+        } else if (password.length() < 8) {
+            errorTextView.setText(R.string.invalid_password_length);
+            Log.e(TAG, "Password is too short.");
         } else {
             new LoginTask(this).execute(email, password);
         }
@@ -61,7 +78,7 @@ public class LoginActivity extends Activity {
         protected String doInBackground(String... params) {
             LoginActivity activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return "";
-            return activity.login(params[0], params[1]);
+            return login(params[0], params[1]);
         }
 
         @Override
@@ -69,19 +86,84 @@ public class LoginActivity extends Activity {
             LoginActivity activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
 
-            if (!result.isEmpty()) {
-                activity.navigateToDashboard(result);
-            } else {
+            try {
+                JSONObject jsonResponse = new JSONObject(result);
+                JSONObject user = jsonResponse.getJSONObject("user");
+                String token = jsonResponse.getString("token");
+                String name = user.getString("name");
+                String lastLogin = user.getString("lastLoginAt");
+
+                activity.navigateToDashboard(token, name, lastLogin);
+            } catch (Exception e) {
+                Log.e(TAG, "Error parsing login response", e);
                 activity.errorTextView.setText(R.string.login_failed);
+            }
+        }
+
+        private static String login(String email, String password) {
+            try {
+                URL url = new URL("https://ensine.me/api/users/login");
+                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+
+                // Usando Gson para criar o JSON
+                Gson gson = new Gson();
+                JsonObject json = new JsonObject();
+                json.addProperty("email", email);
+                json.addProperty("password", password);
+
+                String jsonInputString = gson.toJson(json);
+                Log.d(TAG, "Request URL: " + url);
+                Log.d(TAG, "Request Method: " + conn.getRequestMethod());
+                Log.d(TAG, "Request Headers: Content-Type=application/json; utf-8, Accept=application/json");
+                Log.d(TAG, "Request Body: " + jsonInputString);
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    byte[] input = jsonInputString.getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
+
+                int code = conn.getResponseCode();
+                Log.d(TAG, "Response Code: " + code);
+
+                if (code == HttpsURLConnection.HTTP_OK) {
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
+                        StringBuilder response = new StringBuilder();
+                        String responseLine;
+                        while ((responseLine = br.readLine()) != null) {
+                            response.append(responseLine.trim());
+                        }
+                        Log.d(TAG, "Response Body: " + response.toString());
+                        return response.toString();
+                    }
+                } else {
+                    Log.e(TAG, "HTTP Error: " + code);
+                    // Adicionando mais detalhes do erro
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8"))) {
+                        StringBuilder errorResponse = new StringBuilder();
+                        String errorLine;
+                        while ((errorLine = br.readLine()) != null) {
+                            errorResponse.append(errorLine.trim());
+                        }
+                        Log.e(TAG, "Error Response Body: " + errorResponse.toString());
+                    }
+                    return "";
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Exception: ", e);
+                return "";
             }
         }
     }
 
-    private void navigateToDashboard(String userName) {
+    private void navigateToDashboard(String token, String name, String lastLogin) {
         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-        intent.putExtra("USER_NAME", userName);
+        intent.putExtra("TOKEN", token);
+        intent.putExtra("USER_NAME", name);
+        intent.putExtra("LAST_LOGIN", lastLogin);
         startActivity(intent);
     }
-
-    public native String login(String email, String password);
 }

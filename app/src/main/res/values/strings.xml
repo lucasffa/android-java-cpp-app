@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">EnsineMeApp</string>
-    <string name="login">Login</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="login_button">LOGIN</string>
+    <string name="signup_button">CADASTRAR</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
-    <string name="invalid_email_password">Please enter valid email and password.</string>
-    <string name="login_failed">Login failed. Please try again.</string>
+    <string name="invalid_email_password">Email ou senha inválidos.</string>
+    <string name="invalid_password_length">A senha deve ter pelo menos 8 caracteres.</string>
+    <string name="login_failed">Login falhou. Por favor, tente novamente.</string>
+    <string name="welcome_message">Bem-vindo, %1$s</string>
+    <string name="last_login_message">Último login: %1$s</string>
+    <string name="show_token">Mostrar Token</string>
+    <string name="hide_token">Esconder Token</string>
 </resources>

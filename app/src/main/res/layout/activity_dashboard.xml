@@ -1,15 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textViewUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name"
+        android:text="Welcome, User"
         android:textSize="24sp"
-        android:layout_centerInParent="true"/>
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:id="@+id/textViewLastLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Login: "
+        android:textSize="18sp"
+        android:layout_below="@id/textViewUserName"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/buttonShowToken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Token"
+        android:layout_below="@id/textViewLastLogin"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textViewToken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="14sp"
+        android:layout_below="@id/buttonShowToken"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
