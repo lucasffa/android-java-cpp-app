@@ -5,7 +5,7 @@ workflows:
     environment:
       vars:
         GRADLEW: "./gradlew"
-      java: adopt@1.11
+      java: version: 11
     scripts:
       - name: Set up Android SDK
         script: |
