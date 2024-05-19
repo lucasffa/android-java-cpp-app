@@ -18,8 +18,17 @@ android {
             }
         }
     }
+
+    buildFeatures {
+        buildConfig true
+    }
+
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", '"https://ensine.me/api"'
+        }
         release {
+            buildConfigField "String", "BASE_URL", '"https://ensine.me/api"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

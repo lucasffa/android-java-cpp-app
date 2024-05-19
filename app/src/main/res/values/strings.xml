@@ -11,4 +11,10 @@
     <string name="last_login_message">Último login: %1$s</string>
     <string name="show_token">Mostrar Token</string>
     <string name="hide_token">Esconder Token</string>
+    <string name="signup_title">Cadastrar</string>
+    <string name="signup_success">Sucesso ao registrar. Toque para prosseguir.</string>
+    <string name="signup_error">Algo deu errado. Tente novamente.</string>
+    <string name="next_button">Prosseguir</string>
+    <string name="register_button">Cadastrar</string>
+    <string name="name_hint">Nome</string>
 </resources>

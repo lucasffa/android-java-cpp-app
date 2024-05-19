@@ -102,7 +102,7 @@ public class LoginActivity extends Activity {
 
         private static String login(String email, String password) {
             try {
-                URL url = new URL("https://ensine.me/api/users/login");
+                URL url = new URL(Config.BASE_URL + "/users/login");
                 HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");

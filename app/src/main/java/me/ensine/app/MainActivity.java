@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //navigateToSignUp();
+                navigateToSignUp();
             }
         });
     }
@@ -39,10 +39,8 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    /*
     private void navigateToSignUp() {
         Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
         startActivity(intent);
     }
-     */
 }
