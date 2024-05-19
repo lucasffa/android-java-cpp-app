@@ -5,7 +5,7 @@ workflows:
     environment:
       vars:
         GRADLEW: "./gradlew"
-      java: "11"
+      java: "17"
     scripts:
       - name: Set up Gradle Wrapper permissions
         script: chmod +x $GRADLEW
