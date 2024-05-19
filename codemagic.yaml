@@ -23,4 +23,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - "seuemail@example.com"
+          - "lffa.emails@gmail.com"
