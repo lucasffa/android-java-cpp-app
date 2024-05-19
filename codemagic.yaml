@@ -1,0 +1,29 @@
+workflows:
+  android:
+    name: Android build
+    max_build_duration: 60
+    environment:
+      vars:
+        GRADLE_CMD: "assembleRelease"
+      java:
+        version: "11"
+      android:
+        build_tools_version: "30.0.3"
+        compile_sdk_version: "30"
+        sdk_versions: "30"
+    scripts:
+      - name: Install dependencies
+        script: |
+          echo "y" | sdkmanager "ndk;21.4.7075529"
+          cd android
+          ./gradlew dependencies
+      - name: Build APK
+        script: |
+          cd android
+          ./gradlew $GRADLE_CMD
+    artifacts:
+      - android/app/build/outputs/apk/release/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - "lffa.emails@gmail.com"
