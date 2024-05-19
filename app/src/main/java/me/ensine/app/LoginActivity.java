@@ -92,8 +92,19 @@ public class LoginActivity extends Activity {
                 String token = jsonResponse.getString("token");
                 String name = user.getString("name");
                 String lastLogin = user.getString("lastLoginAt");
+                String uuid = user.getString("uuid");
+                String role = user.getString("role");
 
-                activity.navigateToDashboard(token, name, lastLogin);
+                // Save user details in SharedPreferences
+                SharedPreferencesManager.getInstance(activity).saveUserDetails(token, name, lastLogin, uuid, role);
+
+                // Save user details in SQLite
+                UserRepository.getInstance(activity).saveUserDetails(token, name, lastLogin, uuid, role);
+
+                Log.d(TAG, "User details saved: " + name);
+
+                // Pass user details to DashboardActivity
+                activity.navigateToDashboard(token, name, lastLogin, uuid, role);
             } catch (Exception e) {
                 Log.e(TAG, "Error parsing login response", e);
                 activity.errorTextView.setText(R.string.login_failed);
@@ -159,11 +170,13 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void navigateToDashboard(String token, String name, String lastLogin) {
+    private void navigateToDashboard(String token, String name, String lastLogin, String uuid, String role) {
         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
         intent.putExtra("TOKEN", token);
         intent.putExtra("USER_NAME", name);
         intent.putExtra("LAST_LOGIN", lastLogin);
+        intent.putExtra("UUID", uuid);
+        intent.putExtra("ROLE", role);
         startActivity(intent);
     }
 }

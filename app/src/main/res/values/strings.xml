@@ -17,4 +17,7 @@
     <string name="next_button">Prosseguir</string>
     <string name="register_button">Cadastrar</string>
     <string name="name_hint">Nome</string>
+    <string name="token_message">Token: %1$s</string>
+    <string name="uuid_message">UUID: %1$s</string>
+    <string name="role_message">Cargo: %1$s</string>
 </resources>

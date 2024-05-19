@@ -21,13 +21,20 @@ public class DashboardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        String userName = getIntent().getStringExtra("USER_NAME");
-        String lastLogin = getIntent().getStringExtra("LAST_LOGIN");
-        final String token = getIntent().getStringExtra("TOKEN");
+        SharedPreferencesManager prefs = SharedPreferencesManager.getInstance(this);
+        User user = UserRepository.getInstance(this).getUserDetails();
+
+        String userName = prefs.getName() != null ? prefs.getName() : user.getName();
+        String lastLogin = prefs.getLastLogin() != null ? prefs.getLastLogin() : user.getLastLogin();
+        final String token = prefs.getToken() != null ? prefs.getToken() : user.getToken();
+        String uuid = prefs.getUuid() != null ? prefs.getUuid() : user.getUuid();
+        String role = prefs.getRole() != null ? prefs.getRole() : user.getRole();
 
         TextView userNameTextView = findViewById(R.id.textViewUserName);
         TextView lastLoginTextView = findViewById(R.id.textViewLastLogin);
         final TextView tokenTextView = findViewById(R.id.textViewToken);
+        TextView uuidTextView = findViewById(R.id.textViewUuid);
+        TextView roleTextView = findViewById(R.id.textViewRole);
         final Button tokenButton = findViewById(R.id.buttonShowToken);
 
         String welcomeMessage = getString(R.string.welcome_message, userName);
@@ -37,6 +44,8 @@ public class DashboardActivity extends Activity {
 
         userNameTextView.setText(welcomeMessage);
         lastLoginTextView.setText(lastLoginMessage);
+        uuidTextView.setText(getString(R.string.uuid_message, uuid));
+        roleTextView.setText(getString(R.string.role_message, role));
         tokenButton.setText(showTokenText);
 
         tokenButton.setOnClickListener(new View.OnClickListener() {

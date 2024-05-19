@@ -87,7 +87,7 @@ public class SignUpActivity extends Activity {
 
         private static Boolean register(String name, String email, String password) {
             try {
-                URL url = new URL("https://ensine.me/api/users");
+                URL url = new URL(Config.BASE_URL + "/users/login");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
