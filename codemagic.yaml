@@ -7,10 +7,6 @@ workflows:
         GRADLEW: "./gradlew"
       java: "11"
     scripts:
-      - name: Set up Android SDK
-        script: |
-          yes | sdkmanager --licenses
-          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
       - name: Build with Gradle
         script: |
           $GRADLEW clean
