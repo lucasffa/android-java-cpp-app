@@ -5,9 +5,11 @@ workflows:
     environment:
       vars:
         GRADLEW: "./gradlew"
-      languages:
-        java: 11
+      java_version: 11
     scripts:
+      - name: Set up Java
+        script: |
+          sdk use java 11.0.11.hs-adpt
       - name: Set up Android SDK
         script: |
           yes | sdkmanager --licenses
