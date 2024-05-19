@@ -1,19 +1,20 @@
 workflows:
   android:
     name: Android build
+    instance_type: linux_x2
     max_build_duration: 60
     environment:
       vars:
         GRADLEW: "./gradlew"
-      java_version: 11
     scripts:
-      - name: Set up Java
-        script: |
-          sdk use java 11.0.11.hs-adpt
       - name: Set up Android SDK
         script: |
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+      - name: Set up Java
+        script: |
+          sdk install java 11.0.11.hs-adpt
+          sdk use java 11.0.11.hs-adpt
       - name: Build with Gradle
         script: |
           $GRADLEW clean
