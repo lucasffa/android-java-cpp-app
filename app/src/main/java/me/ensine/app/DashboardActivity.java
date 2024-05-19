@@ -1,6 +1,7 @@
 package me.ensine.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,13 +23,12 @@ public class DashboardActivity extends Activity {
         setContentView(R.layout.activity_dashboard);
 
         SharedPreferencesManager prefs = SharedPreferencesManager.getInstance(this);
-        User user = UserRepository.getInstance(this).getUserDetails();
 
-        String userName = prefs.getName() != null ? prefs.getName() : user.getName();
-        String lastLogin = prefs.getLastLogin() != null ? prefs.getLastLogin() : user.getLastLogin();
-        final String token = prefs.getToken() != null ? prefs.getToken() : user.getToken();
-        String uuid = prefs.getUuid() != null ? prefs.getUuid() : user.getUuid();
-        String role = prefs.getRole() != null ? prefs.getRole() : user.getRole();
+        String userName = prefs.getName();
+        String lastLogin = prefs.getLastLogin();
+        final String token = prefs.getToken();
+        String uuid = prefs.getUuid();
+        String role = prefs.getRole();
 
         TextView userNameTextView = findViewById(R.id.textViewUserName);
         TextView lastLoginTextView = findViewById(R.id.textViewLastLogin);
@@ -36,6 +36,7 @@ public class DashboardActivity extends Activity {
         TextView uuidTextView = findViewById(R.id.textViewUuid);
         TextView roleTextView = findViewById(R.id.textViewRole);
         final Button tokenButton = findViewById(R.id.buttonShowToken);
+        Button logoutButton = findViewById(R.id.buttonLogout);
 
         String welcomeMessage = getString(R.string.welcome_message, userName);
         String lastLoginMessage = getString(R.string.last_login_message, formatDateTime(lastLogin));
@@ -62,6 +63,13 @@ public class DashboardActivity extends Activity {
                 }
             }
         });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
+            }
+        });
     }
 
     private String formatDateTime(String dateTime) {
@@ -78,5 +86,24 @@ public class DashboardActivity extends Activity {
             e.printStackTrace();
             return dateTime;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing to disable back button
+    }
+
+    private void logOut() {
+        // Clear shared preferences
+        SharedPreferencesManager.getInstance(this).clear();
+
+        // Mark the user as logged off in the database
+        UserRepository.getInstance(this).logOffUser();
+
+        // Navigate back to MainActivity
+        Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

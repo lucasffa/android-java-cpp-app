@@ -31,13 +31,14 @@ public class UserRepository {
         values.put(DatabaseHelper.COLUMN_LAST_LOGIN, lastLogin);
         values.put(DatabaseHelper.COLUMN_UUID, uuid);
         values.put(DatabaseHelper.COLUMN_ROLE, role);
+        values.put(DatabaseHelper.COLUMN_IS_LOGGED_OFF, 0); // Mark as not logged off
 
         long result = database.insertWithOnConflict(DatabaseHelper.TABLE_USER, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         Log.d(TAG, "saveUserDetails: result=" + result + ", UUID=" + uuid + ", Token=" + token + ", LastLogin=" + lastLogin);
     }
 
     public User getUserDetails() {
-        String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " ORDER BY " + DatabaseHelper.COLUMN_LAST_LOGIN + " DESC LIMIT 1";
+        String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " WHERE " + DatabaseHelper.COLUMN_IS_LOGGED_OFF + " = 0 ORDER BY " + DatabaseHelper.COLUMN_LAST_LOGIN + " DESC LIMIT 1";
         Cursor cursor = database.rawQuery(query, null);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -52,6 +53,14 @@ public class UserRepository {
         }
         Log.d(TAG, "getUserDetails: No user found");
         return null;
+    }
+
+    public void logOffUser() {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_IS_LOGGED_OFF, 1);
+
+        int rowsUpdated = database.update(DatabaseHelper.TABLE_USER, values, DatabaseHelper.COLUMN_IS_LOGGED_OFF + " = 0", null);
+        Log.d(TAG, "logOffUser: rowsUpdated=" + rowsUpdated);
     }
 
     public void clear() {

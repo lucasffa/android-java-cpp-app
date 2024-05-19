@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,8 @@ public class SignUpActivity extends Activity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private TextView errorTextView;
+
+    private static final String TAG = "SignUpActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,11 @@ public class SignUpActivity extends Activity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
+        Log.d(TAG, "registerUser: Name: " + name + ", Email: " + email + ", Password: " + password);
+
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
             errorTextView.setText(getString(R.string.signup_error));
+            Log.d(TAG, "registerUser: Error - All fields must be filled");
         } else {
             new RegisterTask(this).execute(name, email, password);
         }
@@ -61,6 +67,9 @@ public class SignUpActivity extends Activity {
 
     private static class RegisterTask extends AsyncTask<String, Void, Boolean> {
         private final WeakReference<SignUpActivity> activityReference;
+        private String responseBody = "";
+        private int responseCode = 0;
+        private String requestBody = "";
 
         RegisterTask(SignUpActivity context) {
             activityReference = new WeakReference<>(context);
@@ -78,16 +87,20 @@ public class SignUpActivity extends Activity {
             SignUpActivity activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
 
+            Log.d(TAG, "onPostExecute: Response Code: " + responseCode);
+            Log.d(TAG, "onPostExecute: Response Body: " + responseBody);
+
             if (success) {
                 activity.showSuccessDialog();
             } else {
                 activity.errorTextView.setText(activity.getString(R.string.signup_error));
+                Log.d(TAG, "onPostExecute: SignUp Failed - " + activity.getString(R.string.signup_error));
             }
         }
 
-        private static Boolean register(String name, String email, String password) {
+        private Boolean register(String name, String email, String password) {
             try {
-                URL url = new URL(Config.BASE_URL + "/users/login");
+                URL url = new URL(Config.BASE_URL + "/users");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -100,29 +113,39 @@ public class SignUpActivity extends Activity {
                 json.addProperty("email", email);
                 json.addProperty("password", password);
 
-                String jsonInputString = gson.toJson(json);
+                requestBody = gson.toJson(json);
+                Log.d(TAG, "register: Request URL: " + url);
+                Log.d(TAG, "register: Request Body: " + requestBody);
 
                 try (OutputStream os = conn.getOutputStream()) {
-                    byte[] input = jsonInputString.getBytes("utf-8");
+                    byte[] input = requestBody.getBytes("utf-8");
                     os.write(input, 0, input.length);
                 }
 
-                int code = conn.getResponseCode();
+                responseCode = conn.getResponseCode();
+                Log.d(TAG, "register: Response Code: " + responseCode);
 
-                if (code == HttpURLConnection.HTTP_CREATED) {
-                    try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-                        StringBuilder response = new StringBuilder();
-                        String responseLine;
-                        while ((responseLine = br.readLine()) != null) {
-                            response.append(responseLine.trim());
-                        }
-                        return true;
-                    }
+                StringBuilder response = new StringBuilder();
+                BufferedReader br;
+
+                if (responseCode >= 200 && responseCode < 300) {
+                    br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
                 } else {
-                    return false;
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8"));
                 }
+
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                br.close();
+
+                responseBody = response.toString();
+                Log.d(TAG, "register: Response Body: " + responseBody);
+
+                return responseCode == HttpURLConnection.HTTP_CREATED;
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, "register: Exception during registration", e);
                 return false;
             }
         }
