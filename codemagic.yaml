@@ -5,13 +5,12 @@ workflows:
     environment:
       vars:
         GRADLEW: "./gradlew"
-      matrix:
-        java_version:
-          - adopt@1.11
+      java: adopt@1.11
     scripts:
       - name: Set up Android SDK
         script: |
-          yes | sdkmanager "platforms;android-30" "build-tools;30.0.3" "platform-tools"
+          yes | sdkmanager --licenses
+          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
       - name: Build with Gradle
         script: |
           $GRADLEW clean
