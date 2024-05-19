@@ -1,0 +1,21 @@
+workflows:
+  android:
+    name: Android build
+    max_build_duration: 60
+    environment:
+      vars:
+        GRADLEW: "./gradlew"
+      java: "17"
+    scripts:
+      - name: Set up Gradle Wrapper permissions
+        script: chmod +x $GRADLEW
+      - name: Build with Gradle
+        script: |
+          $GRADLEW clean
+          $GRADLEW assembleRelease
+    artifacts:
+      - android/app/build/outputs/apk/release/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - "lffa.emails@gmail.com"
