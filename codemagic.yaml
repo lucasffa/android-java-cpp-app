@@ -5,14 +5,11 @@ workflows:
     environment:
       vars:
         GRADLEW: "./gradlew"
-      java:
-        version: "11"
       android:
         components:
-          - tools
+          - build-tools;30.0.3
           - platform-tools
-          - build-tools-30.0.3
-          - android-30
+          - platforms;android-30
     scripts:
       - name: Build with Gradle
         script: |
