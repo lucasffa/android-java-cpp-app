@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.helpers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

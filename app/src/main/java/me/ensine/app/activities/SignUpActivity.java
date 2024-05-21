@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,6 +21,9 @@ import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import me.ensine.app.R;
+import me.ensine.app.configs.Config;
 
 public class SignUpActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import me.ensine.app.R;
+import me.ensine.app.managers.SharedPreferencesManager;
+import me.ensine.app.repositories.UserRepository;
 
 public class DashboardActivity extends Activity {
 

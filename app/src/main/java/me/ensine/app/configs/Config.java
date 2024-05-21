@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.configs;
 
 import me.ensine.app.BuildConfig;
 

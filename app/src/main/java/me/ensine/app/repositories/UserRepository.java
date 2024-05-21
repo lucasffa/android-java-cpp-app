@@ -1,10 +1,13 @@
-package me.ensine.app;
+package me.ensine.app.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import me.ensine.app.entities.User;
+import me.ensine.app.helpers.DatabaseHelper;
 
 public class UserRepository {
     private static UserRepository instance;

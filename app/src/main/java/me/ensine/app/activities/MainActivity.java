@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +23,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import me.ensine.app.R;
+import me.ensine.app.managers.SharedPreferencesManager;
+import me.ensine.app.entities.User;
+import me.ensine.app.repositories.UserRepository;
+import me.ensine.app.configs.Config;
 
 public class MainActivity extends Activity {
 

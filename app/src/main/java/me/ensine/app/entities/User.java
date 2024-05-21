@@ -1,4 +1,4 @@
-package me.ensine.app;
+package me.ensine.app.entities;
 
 public class User {
     private String token;
