@@ -46,13 +46,14 @@
 
         <Button
             android:id="@+id/buttonShowToken"
-            android:layout_width="317dp"
-            android:layout_height="68dp"
+            android:layout_width="348dp"
+            android:layout_height="71dp"
             android:layout_below="@id/textViewRole"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="101dp"
             android:background="@drawable/button_border"
-            android:text="@string/token" />
+            android:text="@string/token"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textViewToken"
@@ -65,13 +66,14 @@
 
         <Button
             android:id="@+id/buttonLogout"
-            android:layout_width="317dp"
-            android:layout_height="68dp"
+            android:layout_width="348dp"
+            android:layout_height="71dp"
             android:layout_below="@id/textViewToken"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="-6dp"
             android:background="@drawable/button_border"
-            android:text="@string/logout" />
+            android:text="@string/logout"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textView"
