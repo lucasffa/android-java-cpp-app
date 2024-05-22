@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple_500"
     android:padding="16dp">
 
     <RelativeLayout
@@ -12,62 +13,76 @@
             android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textViewLastLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_below="@id/textViewUserName"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewUuid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:layout_below="@id/textViewLastLogin"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textViewRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:layout_below="@id/textViewUuid"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/buttonShowToken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show Token"
+            android:layout_width="317dp"
+            android:layout_height="68dp"
             android:layout_below="@id/textViewRole"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_border"
+            android:text="@string/token" />
 
         <TextView
             android:id="@+id/textViewToken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:layout_below="@id/buttonShowToken"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/buttonLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
+            android:layout_width="317dp"
+            android:layout_height="68dp"
             android:layout_below="@id/textViewToken"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="21dp"
+            android:background="@drawable/button_border"
+            android:text="@string/logout" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/welcome_back"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
     </RelativeLayout>
 </ScrollView>
