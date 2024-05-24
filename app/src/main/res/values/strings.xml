@@ -20,4 +20,8 @@
     <string name="token_message">Token: %1$s</string>
     <string name="uuid_message">UUID: %1$s</string>
     <string name="role_message">Cargo: %1$s</string>
+    <string name="main_title">Seja bem-vindo!</string>
+    <string name="register">Ainda não possuí uma conta? Comece por aqui!</string>
+    <string name="logout">Logout</string>
+    <string name="token">Show Token</string>
 </resources>
