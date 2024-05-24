@@ -26,6 +26,7 @@ import me.ensine.app.R;
 import me.ensine.app.configs.Config;
 
 public class SignUpActivity extends Activity {
+
     private EditText nameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -38,7 +39,6 @@ public class SignUpActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        TextView titleText = findViewById(R.id.titleSignUp);
         nameEditText = findViewById(R.id.editTextName);
         emailEditText = findViewById(R.id.editTextEmail);
         passwordEditText = findViewById(R.id.editTextPassword);
