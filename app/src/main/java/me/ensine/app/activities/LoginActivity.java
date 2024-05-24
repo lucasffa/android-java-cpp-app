@@ -28,7 +28,6 @@ import me.ensine.app.repositories.UserRepository;
 import me.ensine.app.configs.Config;
 
 public class LoginActivity extends Activity {
-
     private EditText emailEditText;
     private EditText passwordEditText;
     private TextView errorTextView;
@@ -40,6 +39,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        TextView titleText = findViewById(R.id.titleLogin);
         emailEditText = findViewById(R.id.editTextEmail);
         passwordEditText = findViewById(R.id.editTextPassword);
         errorTextView = findViewById(R.id.textViewError);
