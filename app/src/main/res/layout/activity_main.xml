@@ -18,30 +18,30 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="317dp"
-        android:layout_height="68dp"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/textView"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="118dp"
+        android:background="@drawable/button_border"
         android:backgroundTint="@color/white"
         android:fontFamily="sans-serif-medium"
         android:padding="16dp"
-        android:background="@drawable/button_border"
         android:text="@string/login_button"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/buttonSignUp"
-        android:layout_width="317dp"
-        android:layout_height="68dp"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/buttonLogin"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/button_border"
         android:backgroundTint="@color/white"
         android:fontFamily="sans-serif-medium"
         android:padding="16dp"
         android:text="@string/signup_button"
-        android:background="@drawable/button_border"
         android:textColor="@color/black" />
 
     <TextView

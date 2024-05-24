@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:textSize="24sp" />
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textViewLastLogin"
@@ -24,7 +25,8 @@
             android:layout_below="@id/textViewUserName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textViewUuid"
@@ -33,7 +35,8 @@
             android:layout_below="@id/textViewLastLogin"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textViewRole"
@@ -42,12 +45,13 @@
             android:layout_below="@id/textViewUuid"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/buttonShowToken"
-            android:layout_width="348dp"
-            android:layout_height="71dp"
+            android:layout_width="305dp"
+            android:layout_height="50dp"
             android:layout_below="@id/textViewRole"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="101dp"
@@ -59,15 +63,17 @@
             android:id="@+id/textViewToken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:layout_below="@id/buttonShowToken"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/buttonLogout"
-            android:layout_width="348dp"
-            android:layout_height="71dp"
+            android:layout_width="305dp"
+            android:layout_height="50dp"
             android:layout_below="@id/textViewToken"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-6dp"
@@ -75,16 +81,5 @@
             android:text="@string/logout"
             android:textColor="#000000" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/welcome_back"
-            android:textColor="@color/white"
-            android:textSize="32sp" />
     </RelativeLayout>
 </ScrollView>
