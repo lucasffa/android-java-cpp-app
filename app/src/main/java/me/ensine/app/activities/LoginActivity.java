@@ -40,6 +40,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        TextView titleText = findViewById(R.id.titleLogin);
         emailEditText = findViewById(R.id.editTextEmail);
         passwordEditText = findViewById(R.id.editTextPassword);
         errorTextView = findViewById(R.id.textViewError);

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">EnsineMeApp</string>
     <string name="login_button">LOGIN</string>
+    <string name="login">Login</string>
     <string name="signup_button">CADASTRAR</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
